@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: opentsdb-claim0
+  name: opentsdb-claim0
+spec:
+  capacity:
+    storage: 20Gi
+  storageClassName: hdfs
+  accessModes:
+    - ReadWriteOnce
+  gcePersistentDisk:
+    pdName: opentsdb-claim0
+    fsType: ext4
+status: {}

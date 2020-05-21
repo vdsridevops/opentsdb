@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.7.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: opentsdb
+  name: opentsdb
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: opentsdb
+    spec:
+      hostNetwork: true
+      hostPID: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - env:
+        - name: WAITSECS
+          value: "30"
+        image: petergrace/opentsdb-docker:latest
+        name: opentsdb
+        ports:
+        - containerPort: 4242
+        - containerPort: 60030
+        resources: {}
+        volumeMounts:
+        - mountPath: /data/hbase
+          name: opentsdb-claim0
+      restartPolicy: Always
+      volumes:
+      - name: opentsdb-claim0
+        persistentVolumeClaim:
+          claimName: opentsdb-claim0
+status: {}

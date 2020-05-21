@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: opentsdb-claim0
+  name: opentsdb-claim0
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: hdfs
+  resources:
+    requests:
+      storage: 20Gi
+status: {}
